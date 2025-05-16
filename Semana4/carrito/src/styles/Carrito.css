@@ -1,0 +1,19 @@
+#carrito{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 200px;
+    border: 2px solid white;
+    padding: 15px;
+    background-color: darkmagenta;
+    margin-left: 50px;
+}
+
+h2{
+    color: beige;
+    font-size: 32px;
+}
+
+li{
+    color: white;
+}
