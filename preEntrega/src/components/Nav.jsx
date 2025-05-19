@@ -1,12 +1,14 @@
 import '../styles/Nav.css'
+import { Link } from 'react-router-dom'
+
 
 function Nav(){
     return(
         <>
             <nav>
-                <li>Inicio</li>
-                <li>Seccion</li>
-                <li>Seccion</li>
+                <li><Link to='/'>Inicio</Link></li>
+                <li><Link to='/productos'>Productos</Link></li>
+                <li><Link to='/carrito'>Carrito</Link></li>
             </nav>
         </>
     )
