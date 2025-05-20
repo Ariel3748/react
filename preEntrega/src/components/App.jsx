@@ -15,20 +15,27 @@ function App() {
 
 
   function agregarAlCarritoF(producto,cantidad){
-    const existe = carrito.find(p => p.id == producto.id);
+    const existe = carrito.some(p => p.id == producto.id);
 
     if (existe) {
         const carritoActualizado = carrito.map((p) => {
             if (p.id == producto.id){
-              console.log(p.cantidad)
-                const productoActualizado = {...p, cantidad: cantidad + p.cantidad}
+                console.log(p.cantidad)
+                const productoActualizado = {...p, cantidad: producto.cantidad + p.cantidad}
                 return (productoActualizado)}
+            else{return p}
         })
+        console.log("carritoActualizado:",carritoActualizado)
         setCarrito(carritoActualizado)} 
     else{
-        const productoConCantidad = { ...producto, cantidad };
+        const productoConCantidad = {...producto, cantidad};
         setCarrito([...carrito, productoConCantidad]);
       }
+  }
+
+  function borrarProducto(id){
+    const carritoActualizado = carrito.filter((p) => p.id !== id)
+    setCarrito(carritoActualizado)
   }
 
   console.log(carrito)
@@ -42,7 +49,7 @@ function App() {
         <Routes>
           <Route path='/' element={<Home/>} />
           <Route path='/Productos' element={<ContainerProductos funcionAgregarAlCarrito = {agregarAlCarritoF}/>}/>
-          <Route path="/carrito" element={<Carrito carrito={carrito}/>}/>      
+          <Route path="/carrito" element={<Carrito carrito={carrito} borrarProducto={borrarProducto}/>}/>      
         </Routes>
       </div>
     </Router>

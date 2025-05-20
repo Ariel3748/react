@@ -1,4 +1,5 @@
-export default function Carrito({ carrito }) {
+export default function Carrito({ carrito, borrarProducto}) {
+
   return (
     <>
       <div id="carrito">
@@ -12,6 +13,7 @@ export default function Carrito({ carrito }) {
                     <h3>{item.name}</h3>
                     <p>Precio Unitario:{item.price}</p>
                     <p>Cantidad:{item.cantidad}</p>
+                    <button onClick={() => {borrarProducto(item.id)}}>x</button>
                   </div>
                 </li>
               ))

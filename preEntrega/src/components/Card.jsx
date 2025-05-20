@@ -32,13 +32,7 @@ function Card({ producto, funcionCarrito }) {
         <p>{producto.description}</p>
         <p>{producto.price + "$"}</p>
         <button
-          onClick={() => {
-            agregarAlCarrito(producto);
-            console.log("en el onclick:",cantidad)
-          }}
-        >
-          Agregar al Carrito
-        </button>
+          onClick={() => {agregarAlCarrito(producto)}}>Agregar al Carrito</button>
         <div>
           <button onClick={() => restarContador()}>-</button>
           <span style={{ margin: "0 10px", color: "black" }}>{cantidad}</span>
