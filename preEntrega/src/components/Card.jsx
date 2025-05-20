@@ -1,4 +1,30 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
+function Card({producto}) {
+
+
+
+
+  return (
+    <>
+      <article id={producto.id} className="tarjetas">
+        <h2>{producto.name}</h2>
+        <img src={producto.image} alt={producto.name} className="img" />
+        <p>{producto.price + "$"}</p>
+        <Link to={'/productos/' + producto.id}> <button>Ver Mas...</button> </Link>
+      </article>
+    </>
+  );
+}
+
+export default Card;
+
+
+
+/*---------------------------------------------------------------------------------------------------------------------/*
+                      Card Vieja
+
+import { useState } from "react";
 function Card({ producto, funcionCarrito }) {
   const [cantidad, setCantidad] = useState(0);
 
@@ -12,17 +38,10 @@ function Card({ producto, funcionCarrito }) {
     }
   }
 
-
   const agregarAlCarrito = () => {
     if (cantidad < 1) return;
     funcionCarrito(producto, cantidad); //
   };
-
-  /*function agregarAlCarrito(producto, cantidad) {
-    if (cantidad < 1) return;
-    console.log("en la funcion:",cantidad)
-    funcionCarrito({ ...producto, cantidad}); // Pasamos también la cantidad
-  }*/
 
   return (
     <>
@@ -44,3 +63,5 @@ function Card({ producto, funcionCarrito }) {
 }
 
 export default Card;
+
+/*-------------------------------------------------------------------------------------------*/

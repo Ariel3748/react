@@ -3,7 +3,7 @@ import { useState } from "react"
 import Card from "./Card";
 import '../styles/ProductosDisponibles.css'
 
-function ContainerProductos({funcionAgregarAlCarrito}){
+function ContainerProductos({}){
     const[productos,setProductos] = useState([])  
     const [cargando, setCargando] = useState(true);
     const [error, setError] = useState(null);
@@ -39,7 +39,6 @@ function ContainerProductos({funcionAgregarAlCarrito}){
                 {productos.map((producto) => (
                     <Card
                         producto={producto}
-                        funcionCarrito = {funcionAgregarAlCarrito}
                     />
                 ))}
             </div>

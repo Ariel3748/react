@@ -7,6 +7,7 @@ import ContainerProductos from './ContainerProductos'
 import Carrito from './Carrito'
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import Nav from './Nav'
+import CardProducto from './CardProducto'
 
 function App() {
   const [cantidad,setCantidad] = useState(0)
@@ -20,8 +21,8 @@ function App() {
     if (existe) {
         const carritoActualizado = carrito.map((p) => {
             if (p.id == producto.id){
-                console.log(p.cantidad)
-                const productoActualizado = {...p, cantidad: producto.cantidad + p.cantidad}
+                console.log("Sumando:", p.cantidad, "+", cantidad)
+                const productoActualizado = {...p, cantidad: cantidad + p.cantidad}
                 return (productoActualizado)}
             else{return p}
         })
@@ -48,8 +49,10 @@ function App() {
         <Nav/>
         <Routes>
           <Route path='/' element={<Home/>} />
-          <Route path='/Productos' element={<ContainerProductos funcionAgregarAlCarrito = {agregarAlCarritoF}/>}/>
-          <Route path="/carrito" element={<Carrito carrito={carrito} borrarProducto={borrarProducto}/>}/>      
+          <Route path='/Productos' element={<ContainerProductos/>}/>
+          <Route path="/carrito" element={<Carrito carrito={carrito} borrarProducto={borrarProducto}/>}/>
+
+          <Route path="/productos/:id" element={<CardProducto funcionCarrito={agregarAlCarritoF} />} />
         </Routes>
       </div>
     </Router>
