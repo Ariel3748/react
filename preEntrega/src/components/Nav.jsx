@@ -1,17 +1,30 @@
-import '../styles/Nav.css'
-import { Link } from 'react-router-dom'
+import "../styles/Nav.css";
+import { Link } from "react-router-dom";
 
-
-function Nav(){
-    return(
-        <>
-            <nav>
-                <li><Link to='/'>Inicio</Link></li>
-                <li><Link to='/productos'>Productos</Link></li>
-                <li><Link to='/carrito'>Carrito</Link></li>
-            </nav>
-        </>
-    )
+function Nav() {
+  return (
+    <>
+      <nav className="navbar">
+        <ul className="nav-list">
+          <li>
+            <Link to="/">Inicio</Link>
+          </li>
+          <li>
+            <Link to="/productos">Productos</Link>
+          </li>
+          <li>
+            <Link to="/carrito">Carrito</Link>
+          </li>
+          <li>
+            <Link to="/about">Nosotros</Link>
+          </li>
+          <li>
+            <Link to="/contacto">Contacto</Link>
+          </li>
+        </ul>
+      </nav>
+    </>
+  );
 }
 
-export default Nav
+export default Nav;

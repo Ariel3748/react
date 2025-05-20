@@ -8,6 +8,8 @@ import Carrito from './Carrito'
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import Nav from './Nav'
 import CardProducto from './CardProducto'
+import Contacto from './Contacto'
+import About from './About'
 
 function App() {
   const [cantidad,setCantidad] = useState(0)
@@ -51,7 +53,8 @@ function App() {
           <Route path='/' element={<Home/>} />
           <Route path='/Productos' element={<ContainerProductos/>}/>
           <Route path="/carrito" element={<Carrito carrito={carrito} borrarProducto={borrarProducto}/>}/>
-
+          <Route path='/contacto' element={<Contacto/>}/>
+          <Route path='/about' element={<About/>}/>
           <Route path="/productos/:id" element={<CardProducto funcionCarrito={agregarAlCarritoF} />} />
         </Routes>
       </div>
