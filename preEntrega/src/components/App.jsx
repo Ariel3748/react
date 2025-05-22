@@ -5,15 +5,19 @@ import '../styles/App.css'
 import Home from'../layouts/Home'
 import ContainerProductos from './ContainerProductos'
 import Carrito from './Carrito'
-import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
+import {BrowserRouter as Router, Routes, Route, Navigate} from 'react-router-dom';
 import Nav from './Nav'
 import CardProducto from './CardProducto'
 import Contacto from './Contacto'
 import About from './About'
+import Login from './Login'
+import Admin from './Admin'
 
 function App() {
   const [cantidad,setCantidad] = useState(0)
   const [carrito, setCarrito] = useState([])
+  const [usuario,setUsuario] = useState(false)
+  const [admin,setAdmin] = useState(false)
 
 
 
@@ -41,6 +45,15 @@ function App() {
     setCarrito(carritoActualizado)
   }
 
+
+  function setearAdmin(){
+    setAdmin(!admin)
+  }
+
+  function setearUser(){
+    setUsuario(!usuario)
+  }
+
   console.log(carrito)
 
 
@@ -52,10 +65,12 @@ function App() {
         <Routes>
           <Route path='/' element={<Home/>} />
           <Route path='/Productos' element={<ContainerProductos/>}/>
-          <Route path="/carrito" element={<Carrito carrito={carrito} borrarProducto={borrarProducto}/>}/>
+          <Route path="/carrito" element={<Carrito carrito={carrito} borrarProducto={borrarProducto} user={usuario}  />}/>
           <Route path='/contacto' element={<Contacto/>}/>
           <Route path='/about' element={<About/>}/>
           <Route path="/productos/:id" element={<CardProducto funcionCarrito={agregarAlCarritoF} />} />
+          <Route path='/login' element={<Login user={usuario} admin={admin} setUser={setearUser} setAdmin={setearAdmin}/>}/>
+          <Route path='/admin' element={admin ? <Admin/> : <Navigate to={'/login'} replace />}/>
         </Routes>
       </div>
     </Router>

@@ -1,6 +1,16 @@
+import { Navigate, replace } from 'react-router-dom';
 import '../styles/Carrito.css'
 
-export default function Carrito({ carrito, borrarProducto }) {
+export default function Carrito({ carrito, borrarProducto, user }) {
+
+  if(!user){
+    alert("No estas logueado")
+    return(
+    <Navigate to={'/login'} replace/>)
+  }
+
+
+
   return (
     <>
       <div id="carrito" className="carrito-container">
