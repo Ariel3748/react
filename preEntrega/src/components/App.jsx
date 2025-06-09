@@ -14,14 +14,14 @@ import Login from './Login'
 import Admin from './Admin'
 
 function App() {
-  const [cantidad,setCantidad] = useState(0)
-  const [carrito, setCarrito] = useState([])
+  //const [cantidad,setCantidad] = useState(0)
+  //const [carrito, setCarrito] = useState([])
   const [usuario,setUsuario] = useState(false)
   const [admin,setAdmin] = useState(false)
 
 
 
-  function agregarAlCarritoF(producto,cantidad){
+  /*function agregarAlCarritoF(producto,cantidad){
     const existe = carrito.some(p => p.id == producto.id);
 
     if (existe) {
@@ -43,7 +43,7 @@ function App() {
   function borrarProducto(id){
     const carritoActualizado = carrito.filter((p) => p.id !== id)
     setCarrito(carritoActualizado)
-  }
+  }*/
 
 
   function setearAdmin(){
@@ -54,7 +54,7 @@ function App() {
     setUsuario(!usuario)
   }
 
-  console.log(carrito)
+ // console.log(carrito)
 
 
   return (
@@ -65,10 +65,10 @@ function App() {
         <Routes>
           <Route path='/' element={<Home/>} />
           <Route path='/Productos' element={<ContainerProductos/>}/>
-          <Route path="/carrito" element={<Carrito carrito={carrito} borrarProducto={borrarProducto} user={usuario}  />}/>
+          <Route path="/carrito" element={<Carrito user={usuario}  />}/>
           <Route path='/contacto' element={<Contacto/>}/>
           <Route path='/about' element={<About/>}/>
-          <Route path="/productos/:id" element={<CardProducto funcionCarrito={agregarAlCarritoF} />} />
+          <Route path="/productos/:id" element={<CardProducto/>} />
           <Route path='/login' element={<Login user={usuario} admin={admin} setUser={setearUser} setAdmin={setearAdmin}/>}/>
           <Route path='/admin' element={admin ? <Admin/> : <Navigate to={'/login'} replace />}/>
         </Routes>

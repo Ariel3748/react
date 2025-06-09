@@ -1,7 +1,11 @@
 import { Navigate, replace } from 'react-router-dom';
 import '../styles/Carrito.css'
+import { useContext } from 'react';
+import { CarritoContext } from '../context/CarritoContext';
 
-export default function Carrito({ carrito, borrarProducto, user }) {
+export default function Carrito({user}) {
+
+  const {carrito,borrarProducto,vaciarCarrito} = useContext(CarritoContext)
 
   if(!user){
     alert("No estas logueado")
@@ -14,6 +18,7 @@ export default function Carrito({ carrito, borrarProducto, user }) {
   return (
     <>
       <div id="carrito" className="carrito-container">
+        <button onClick={vaciarCarrito}>Vaciar Carrito</button>
         <h2 className="carrito-titulo">Carrito</h2>
         <ul className="carrito-lista">
           {carrito.length > 0 ? (

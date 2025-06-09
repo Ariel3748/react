@@ -1,15 +1,17 @@
 import { useParams } from 'react-router-dom';
 import '../styles/CardProducto.css'
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
+import { CarritoContext } from '../context/CarritoContext';
 
 
-export default function CardProducto({funcionCarrito}){
+export default function CardProducto({}){
 
   const { id } = useParams();
   const [producto, setProducto] = useState(null);
   const [cantidad, setCantidad] = useState(1);
   const [cargando, setCargando] = useState(true);
   const [error, setError] = useState(null);
+  const {agregarAlCarritoF} = useContext(CarritoContext)
 
 
   useEffect(() => {
@@ -44,7 +46,7 @@ export default function CardProducto({funcionCarrito}){
   const agregarAlCarrito = () => {
     if (cantidad < 1) return;
     console.log("La cantidad que va al coso:",cantidad)
-    funcionCarrito(producto, cantidad);
+    agregarAlCarritoF(producto, cantidad);
   };
 
   if (cargando) return <p>Cargando producto...</p>;
