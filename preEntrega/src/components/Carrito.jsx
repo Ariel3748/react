@@ -2,10 +2,12 @@ import { Navigate, replace } from 'react-router-dom';
 import '../styles/Carrito.css'
 import { useContext } from 'react';
 import { CarritoContext } from '../context/CarritoContext';
+import { useAuthContext } from '../context/AuthContext';
 
-export default function Carrito({user}) {
+export default function Carrito() {
 
   const {carrito,borrarProducto,vaciarCarrito} = useContext(CarritoContext)
+  const {user} = useAuthContext()
 
   if(!user){
     alert("No estas logueado")
