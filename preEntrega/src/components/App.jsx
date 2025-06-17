@@ -13,6 +13,7 @@ import About from './About'
 import Login from './Login'
 import Admin from './Admin'
 import { useAuthContext } from '../context/AuthContext'
+import FormularioProducto from './FormularioProducto'
 
 function App() {
   
@@ -33,6 +34,7 @@ function App() {
           <Route path="/productos/:id" element={<CardProducto/>} />
           <Route path='/login' element={<Login />}/>
           <Route path='/admin' element={<Admin/>}/>
+          <Route path ='/admin/agregarProducto' element={<FormularioProducto/>}/>
         </Routes>
       </div>
     </Router>
