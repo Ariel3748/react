@@ -1,7 +1,10 @@
+import { useAuthContext } from "../context/AuthContext";
 import "../styles/Nav.css";
 import { Link } from "react-router-dom";
 
 function Nav() {
+
+  const {admin} = useAuthContext();
   return (
     <>
       <nav className="navbar">
@@ -24,9 +27,7 @@ function Nav() {
           <li>
             <Link to="/login">Login</Link>
           </li>
-          <li>
-            <Link to="/admin">Admin</Link>
-          </li>
+          {admin ? <li><Link to="/admin/agregarProducto">CRUD</Link></li> : <></>}
         </ul>
       </nav>
     </>

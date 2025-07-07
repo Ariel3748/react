@@ -1,39 +1,34 @@
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import '../styles/CardProducto.css'
 import { useContext, useEffect, useState } from 'react';
 import { CarritoContext } from '../context/CarritoContext';
+import { useAuthContext } from '../context/AuthContext';
+import { useProductosContext } from '../context/ProductosContext';
 
 
 export default function CardProducto({}){
 
+  const {productoEncontrado, obtenerProducto} = useProductosContext()
+
   const { id } = useParams();
-  const [producto, setProducto] = useState(null);
+  //const [producto, setProducto] = useState(null);
   const [cantidad, setCantidad] = useState(1);
   const [cargando, setCargando] = useState(true);
   const [error, setError] = useState(null);
   const {agregarAlCarritoF} = useContext(CarritoContext)
+  const {admin} = useAuthContext()
 
 
   useEffect(() => {
-    fetch("https://681c26606ae7c794cf70ceb6.mockapi.io/articles")
-      .then((res) => res.json())
-      .then((datos) => {
-        const productoEncontrado = datos.find((item) => item.id === id);
-        if (productoEncontrado) {
-          setProducto(productoEncontrado);
-        } else {
-          setError("Producto no encontrado.");
-        }
-        setCargando(false);
-      })
-      .catch((err) => {
-        console.log("Error:", err);
-        setError("Hubo un error al obtener el producto.");
-        setCargando(false);
-      });
+        obtenerProducto(id).then(()=>{
+          setCargando(false)
+        }).catch((err)=>{
+          setError(err)
+          setCargando(false)
+        })
   }, [id]);
 
-    function sumarContador() {
+  function sumarContador() {
     setCantidad(cantidad + 1);
   }
 
@@ -45,27 +40,26 @@ export default function CardProducto({}){
 
   const agregarAlCarrito = () => {
     if (cantidad < 1) return;
-    console.log("La cantidad que va al coso:",cantidad)
-    agregarAlCarritoF(producto, cantidad);
+    agregarAlCarritoF(productoEncontrado, cantidad);
   };
 
   if (cargando) return <p>Cargando producto...</p>;
   if (error) return <p>{error}</p>;
-  if (!producto) return null;
+  if (!productoEncontrado) return null;
 
 
 
 
 return(
     <div className="producto-detalle">
-  <img className="producto-img" src={producto.image} alt={producto.name} />
+  <img className="producto-img" src={productoEncontrado.image} alt={productoEncontrado.name} />
 
   <div className="producto-info">
-    <h2 className="producto-titulo">{producto.name}</h2>
+    <h2 className="producto-titulo">{productoEncontrado.name}</h2>
     <p className="producto-descripcion">
-      {producto.description}
+      {productoEncontrado.description}
     </p>
-    <p className="producto-precio">{producto.price}</p>
+    <p className="producto-precio">{productoEncontrado.price}</p>
 
     <div className="cantidad-control">
       <button onClick={restarContador} className="btn-cantidad">-</button>
@@ -73,7 +67,7 @@ return(
       <button onClick={sumarContador} className="btn-cantidad">+</button>
     </div>
 
-    <button onClick={() => {agregarAlCarrito(producto)}} className="btn-agregar">Agregar al carrito</button>
+    {admin ? <Link to ={"/admin/editarProducto/" + id }><button className="btn-agregar">Editar Producto</button></Link>  : <button onClick={() => {agregarAlCarrito(productoEncontrado)}} className="btn-agregar">Agregar al carrito</button>}
   </div>
 </div>
 

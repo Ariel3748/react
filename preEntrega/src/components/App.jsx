@@ -14,7 +14,7 @@ import Login from './Login'
 import Admin from './Admin'
 import { useAuthContext } from '../context/AuthContext'
 import FormularioProducto from './FormularioProducto'
-
+import EditarProducto from './EditarProducto'
 function App() {
   
 
@@ -35,6 +35,7 @@ function App() {
           <Route path='/login' element={<Login />}/>
           <Route path='/admin' element={<Admin/>}/>
           <Route path ='/admin/agregarProducto' element={<FormularioProducto/>}/>
+          <Route path ='/admin/editarProducto/:id' element={<EditarProducto/>}/>
         </Routes>
       </div>
     </Router>
