@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import reactLogo from '../assets/react.svg'
 import viteLogo from '/vite.svg'
 import '../styles/App.css'
@@ -17,8 +17,11 @@ import FormularioProducto from './FormularioProducto'
 import EditarProducto from './EditarProducto'
 function App() {
   
+  const {verificarLogueo} = useAuthContext()
 
-
+  useEffect(()=>{
+    verificarLogueo()
+  },[])
 
   return (
   <>

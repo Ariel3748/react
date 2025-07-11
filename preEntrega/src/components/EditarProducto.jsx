@@ -1,13 +1,23 @@
 import { useEffect, useState } from "react";
 import { useProductosContext } from "../context/ProductosContext";
-import { useParams } from "react-router-dom";
+import { Navigate, useParams } from "react-router-dom";
+import { useAuthContext } from "../context/AuthContext";
 
 function FormularioEdicion({}) {
-  const {obtenerProducto,productoEncontrado} = useProductosContext()
+  const {obtenerProducto,productoEncontrado, editarProducto} = useProductosContext()
   const {id} = useParams()
   const [producto,setProducto] = useState(productoEncontrado)
   const [cargando, setCargando] = useState(true)
   const [error, setError] = useState(null)
+  const {user} = useAuthContext()
+
+  if(!user){
+    alert("No estas logueado")
+    return(
+    <Navigate to={'/login'} replace/>)
+  }
+
+
 
 
   useEffect(() => {
@@ -25,25 +35,55 @@ function FormularioEdicion({}) {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      const respuesta = await fetch(`https://681c26606ae7c794cf70ceb6.mockapi.io/api/v1/productos/${producto.id}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(producto),
-      });
-      if (!respuesta.ok) {
-        throw new Error('Error al actualizar el producto.');
-      }
-      const data = await respuesta.json();
-      onActualizar(data);
-      alert('Producto actualizado correctamente.');
-    } catch (error) {
-      console.error(error.message);
-      alert('Hubo un problema al actualizar el producto.');
+    const form = validarFormulario()
+    if(form){
+      alert(form)}
+    else{
+      editarProducto(producto).then(()=>{
+        alert("El producto se modifico exitosamente")
+        setCargando(false)
+      }).catch((err)=>{
+        console.log(err)
+        setError(err)
+        setCargando(false)
+      })
     }
   };
+  
+
+
+
+  const validarFormulario = () => {
+  const nuevosErrores = {};
+  if (!producto.name.trim()) {
+    return "El nombre es obligatorio.";
+  }
+  if (!producto.price || producto.precio <= 0) {
+    return "El precio debe ser mayor a 0";
+  }
+  if (!producto.description.trim() || producto.description.length < 10) {
+    return "La descripción debe tener al menos 10 caracteres.";
+  }
+  return null;
+};
+
+  /*const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const error = validarFormulario();
+
+    if (error) {
+      alert(error); // Acá salta el mensaje
+    } else {
+      agregarProducto(producto)
+        .then((data) => setProducto({ name: "", price: "", description: "" }, alert("El producto se agrego correctamente")))
+        .catch((error) => alert(validarForm));
+    }
+  };*/
+
+
+
+
   return (
     <form onSubmit={handleSubmit}>
       <h2>Editar Producto</h2>
@@ -51,8 +91,8 @@ function FormularioEdicion({}) {
         <label>Nombre:</label>
         <input
           type="text"
-          name="nombre"
-          value={producto.nombre || ''}
+          name="name"
+          value={producto.name || ''}
           onChange={handleChange}
           required
         />
@@ -61,8 +101,8 @@ function FormularioEdicion({}) {
         <label>Precio:</label>
         <input
           type="number"
-          name="precio"
-          value={producto.precio || ''}
+          name="price"
+          value={producto.price || ''}
           onChange={handleChange}
           required
           min="0"
@@ -71,8 +111,8 @@ function FormularioEdicion({}) {
       <div>
         <label>Descripción:</label>
         <textarea
-          name="descripcion"
-          value={producto.descripcion || ''}
+          name="description"
+          value={producto.description || ''}
           onChange={handleChange}
           required
         />

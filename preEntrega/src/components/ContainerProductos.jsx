@@ -3,6 +3,7 @@ import { useState } from "react"
 import Card from "./Card";
 import '../styles/ProductosDisponibles.css'
 import { useProductosContext } from "../context/ProductosContext";
+import Cards from "./Card";
 
 function ContainerProductos({}){
     //const[productos,setProductos] = useState([])  

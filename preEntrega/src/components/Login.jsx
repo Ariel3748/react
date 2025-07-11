@@ -8,8 +8,9 @@ function Login() {
   const [password, setPassword] = useState("");
   const { login } = useAuthContext();
   const navigate = useNavigate();
-  const { user } = useAuthContext();
+  const { user, admin } = useAuthContext();
   const { logout } = useAuthContext();
+
   
 
 
@@ -25,7 +26,7 @@ function Login() {
     }
   };
 
-  if (user) {
+  if (user || admin ) {
     return (
       <>
         <button onClick={logout}>Cerrar Sesion</button>

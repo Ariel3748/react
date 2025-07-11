@@ -5,6 +5,7 @@ import App from './components/App'
 import { CarritoProvider } from './context/CarritoContext'
 import { AuthProvider } from './context/AuthContext'
 import { ProductosProvider } from './context/ProductosContext'
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>

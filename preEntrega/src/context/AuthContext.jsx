@@ -18,11 +18,25 @@ export function AuthProvider({ children }) {
   const logout = () => {
     localStorage.removeItem('authToken');
     setUser(null);
+    setAdmin(false)
   };
 
 
+  function verificarLogueo(){
+    const userToken = localStorage.getItem('authToken')
+    if(userToken == 'fake-token-admin@gmail.com'){
+      console.log("sadas")
+      setAdmin(true)
+      return
+    }
+    else if(userToken){
+      setUser(true)
+    }
+  }
+
+
   return (
-    <AuthContext.Provider value={{ user, login, logout, admin }}>
+    <AuthContext.Provider value={{ user, login, logout, admin,verificarLogueo }}>
       {children}
     </AuthContext.Provider> );
 }

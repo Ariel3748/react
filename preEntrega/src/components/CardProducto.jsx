@@ -1,4 +1,4 @@
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import '../styles/CardProducto.css'
 import { useContext, useEffect, useState } from 'react';
 import { CarritoContext } from '../context/CarritoContext';
@@ -8,10 +8,9 @@ import { useProductosContext } from '../context/ProductosContext';
 
 export default function CardProducto({}){
 
-  const {productoEncontrado, obtenerProducto} = useProductosContext()
-
+  const {productoEncontrado, obtenerProducto, eliminarProducto} = useProductosContext()
+  const navigate = useNavigate()
   const { id } = useParams();
-  //const [producto, setProducto] = useState(null);
   const [cantidad, setCantidad] = useState(1);
   const [cargando, setCargando] = useState(true);
   const [error, setError] = useState(null);
@@ -27,6 +26,15 @@ export default function CardProducto({}){
           setCargando(false)
         })
   }, [id]);
+
+
+  function eliminarHand(){
+    eliminarProducto(id).then(()=>{
+      navigate("/productos")
+    }).catch(()=>{
+
+    })
+  }
 
   function sumarContador() {
     setCantidad(cantidad + 1);
@@ -68,6 +76,7 @@ return(
     </div>
 
     {admin ? <Link to ={"/admin/editarProducto/" + id }><button className="btn-agregar">Editar Producto</button></Link>  : <button onClick={() => {agregarAlCarrito(productoEncontrado)}} className="btn-agregar">Agregar al carrito</button>}
+    {admin ? <button onClick={eliminarHand} className="btn-agregar">Eliminar Producto</button> : <></>}
   </div>
 </div>
 
