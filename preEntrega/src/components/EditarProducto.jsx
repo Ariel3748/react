@@ -74,20 +74,6 @@ function FormularioEdicion({}) {
   return null;
 };
 
-  /*const handleSubmit = (e) => {
-    e.preventDefault();
-
-    const error = validarFormulario();
-
-    if (error) {
-      alert(error); // Acá salta el mensaje
-    } else {
-      agregarProducto(producto)
-        .then((data) => setProducto({ name: "", price: "", description: "" }, alert("El producto se agrego correctamente")))
-        .catch((error) => alert(validarForm));
-    }
-  };*/
-
 
 
 
