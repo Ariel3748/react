@@ -1,5 +1,4 @@
 import Footer from "../components/Footer";
-import Nav from "../components/Nav";
 import Main from "../components/Main";
 import Header from "../components/Header";
 
@@ -10,10 +9,14 @@ function Home() {
     
     return(
         <>
-            <Header/>
-
-            <Main/>
-            <Footer/>
+            <div className="d-flex flex-column min-vh-100">
+            <Header />
+            
+            <main className="flex-grow-1">
+                <Main />
+            </main>
+            
+            </div>
         </>
 
 

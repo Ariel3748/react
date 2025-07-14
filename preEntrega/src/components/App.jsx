@@ -11,10 +11,10 @@ import CardProducto from './CardProducto'
 import Contacto from './Contacto'
 import About from './About'
 import Login from './Login'
-import Admin from './Admin'
 import { useAuthContext } from '../context/AuthContext'
 import FormularioProducto from './FormularioProducto'
 import EditarProducto from './EditarProducto'
+import Footer from './Footer'
 function App() {
   
   const {verificarLogueo} = useAuthContext()
@@ -26,7 +26,7 @@ function App() {
   return (
   <>
     <Router>
-      <div>
+      <div className="d-flex flex-column min-vh-100">
         <Nav/>
         <Routes>
           <Route path='/' element={<Home/>} />
@@ -36,10 +36,10 @@ function App() {
           <Route path='/about' element={<About/>}/>
           <Route path="/productos/:id" element={<CardProducto/>} />
           <Route path='/login' element={<Login />}/>
-          <Route path='/admin' element={<Admin/>}/>
           <Route path ='/admin/agregarProducto' element={<FormularioProducto/>}/>
           <Route path ='/admin/editarProducto/:id' element={<EditarProducto/>}/>
         </Routes>
+        <Footer/>
       </div>
     </Router>
   </>

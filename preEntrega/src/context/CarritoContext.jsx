@@ -1,4 +1,5 @@
 import React, { createContext, useState } from 'react';
+import { toast, ToastContainer } from 'react-toastify';
 // Crear el contexto
 export const CarritoContext = createContext();
 // Proveedor del contexto
@@ -20,7 +21,9 @@ export function CarritoProvider({ children }) {
                 else{return p}
             })
             console.log("carritoActualizado:",carritoActualizado)
-            setCarrito(carritoActualizado)} 
+            setCarrito(carritoActualizado) 
+            toast.success("Producto agregado correctamente")
+        }
         else{
             const productoConCantidad = {...producto, cantidad};
             setCarrito([...carrito, productoConCantidad]);
@@ -44,6 +47,7 @@ export function CarritoProvider({ children }) {
     return (
         <CarritoContext.Provider value={{ cantidad, carrito, agregarAlCarritoF, vaciarCarrito, borrarProducto }}>
             {children}
+            <ToastContainer/>
         </CarritoContext.Provider>
     );
 }

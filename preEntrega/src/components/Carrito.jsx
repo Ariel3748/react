@@ -3,6 +3,10 @@ import '../styles/Carrito.css'
 import { useContext } from 'react';
 import { CarritoContext } from '../context/CarritoContext';
 import { useAuthContext } from '../context/AuthContext';
+import Button from 'react-bootstrap/Button';
+import 'react-toastify/dist/ReactToastify.css'
+import { toast, ToastContainer } from 'react-toastify';
+
 
 export default function Carrito() {
 
@@ -10,7 +14,7 @@ export default function Carrito() {
   const {user} = useAuthContext()
 
   if(!user){
-    alert("No estas logueado")
+      alert("No estas logueado")
     return(
     <Navigate to={'/login'} replace/>)
   }
@@ -19,8 +23,9 @@ export default function Carrito() {
 
   return (
     <>
+    
       <div id="carrito" className="carrito-container">
-        <button onClick={vaciarCarrito}>Vaciar Carrito</button>
+        <Button variant="secondary"onClick={vaciarCarrito}>Vaciar Carrito</Button>
         <h2 className="carrito-titulo">Carrito</h2>
         <ul className="carrito-lista">
           {carrito.length > 0 ? (
@@ -45,6 +50,7 @@ export default function Carrito() {
           )}
         </ul>
       </div>
+      <ToastContainer />
     </>
   );
 }

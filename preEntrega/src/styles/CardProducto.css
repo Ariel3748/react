@@ -1,45 +1,53 @@
 .producto-detalle {
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap; /* Para que se acomode mejor en pantallas chicas */
   gap: 20px;
   padding: 20px;
-  max-width: 800px;
-  margin: auto;
-  border: 1px solid #ddd;
+  max-width: 900px;
+  margin: 100px auto 0 auto;
+  margin-top: 50px;
+  border: 1px solid #dee2e6;
   border-radius: 12px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  margin-top: 100px;
-  background-color: #1f1f1f;;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  background-color: #ffffff;
+  box-sizing: border-box;
 }
 
 .producto-img {
-  width: 300px;
+  width: 100%;
+  max-width: 300px;
   height: auto;
   border-radius: 8px;
   object-fit: cover;
+  margin: 0 auto;
+  flex-shrink: 0;
 }
 
 .producto-info {
+  flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  flex: 1;
+  min-width: 250px;
 }
 
 .producto-titulo {
-  font-size: 24px;
-  margin: 0 0 10px 0;
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+  color: #212529;
 }
 
 .producto-descripcion {
-  font-size: 16px;
+  font-size: 1rem;
+  color: #495057;
   margin-bottom: 20px;
-  color: #ffffffc7;
 }
 
 .producto-precio {
-  font-size: 20px;
+  font-size: 1.25rem;
   font-weight: bold;
+  color: #198754;
   margin-bottom: 20px;
 }
 
@@ -51,31 +59,54 @@
 }
 
 .btn-cantidad {
-  padding: 5px 10px;
-  font-size: 18px;
-  border: none;
-  background-color: #8f22c155;
-  cursor: pointer;
+  padding: 6px 12px;
+  font-size: 1.25rem;
+  background-color: #e9ecef;
+  border: 1px solid #ced4da;
   border-radius: 6px;
+  cursor: pointer;
 }
 
 .cantidad-valor {
-  font-size: 18px;
+  font-size: 1.25rem;
   min-width: 24px;
   text-align: center;
 }
 
 .btn-agregar {
   padding: 10px;
-  background-color: #28a745;
+  background-color: #0d6efd;
   color: white;
   border: none;
   border-radius: 8px;
-  font-size: 16px;
+  font-size: 1rem;
   cursor: pointer;
   transition: background-color 0.2s;
+  margin-bottom: 10px;
 }
 
 .btn-agregar:hover {
-  background-color: #218838;
+  background-color: #0b5ed7;
+}
+
+/* Mobile: apila imagen e info */
+@media (max-width: 768px) {
+  .producto-detalle {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .producto-info {
+    align-items: center;
+  }
+
+  .cantidad-control {
+    justify-content: center;
+  }
+
+  .btn-agregar {
+    width: 100%;
+    max-width: 300px;
+  }
 }

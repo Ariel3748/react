@@ -4,6 +4,7 @@ import { useContext, useEffect, useState } from 'react';
 import { CarritoContext } from '../context/CarritoContext';
 import { useAuthContext } from '../context/AuthContext';
 import { useProductosContext } from '../context/ProductosContext';
+import { toast, ToastContainer } from 'react-toastify';
 
 
 export default function CardProducto({}){
@@ -49,6 +50,7 @@ export default function CardProducto({}){
   const agregarAlCarrito = () => {
     if (cantidad < 1) return;
     agregarAlCarritoF(productoEncontrado, cantidad);
+    toast.success("Producto agregado correctamente")
   };
 
   if (cargando) return <p>Cargando producto...</p>;
@@ -78,6 +80,7 @@ return(
     {admin ? <Link to ={"/admin/editarProducto/" + id }><button className="btn-agregar">Editar Producto</button></Link>  : <button onClick={() => {agregarAlCarrito(productoEncontrado)}} className="btn-agregar">Agregar al carrito</button>}
     {admin ? <button onClick={eliminarHand} className="btn-agregar">Eliminar Producto</button> : <></>}
   </div>
+  <ToastContainer/>
 </div>
 
 )

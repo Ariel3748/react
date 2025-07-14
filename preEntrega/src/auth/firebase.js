@@ -44,8 +44,8 @@ export function iniciarSesion(email,password){
     const errorCode = error.code;
     const errorMessage = error.message;
     const errores = errorCode + errorMessage
-    console.log(errorCode, errorMessage)
-    rej(errores)
+    console.log(errores)
+    rej(error)
     });
   }))
   }

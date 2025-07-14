@@ -1,5 +1,4 @@
 import { useAuthContext } from "../context/AuthContext";
-import "../styles/Nav.css";
 import { Link } from "react-router-dom";
 
 /*function Nav() {

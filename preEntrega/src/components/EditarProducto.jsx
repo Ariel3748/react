@@ -2,6 +2,9 @@ import { useEffect, useState } from "react";
 import { useProductosContext } from "../context/ProductosContext";
 import { Navigate, useParams } from "react-router-dom";
 import { useAuthContext } from "../context/AuthContext";
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
+import { toast, ToastContainer } from "react-toastify";
 
 function FormularioEdicion({}) {
   const {obtenerProducto,productoEncontrado, editarProducto} = useProductosContext()
@@ -37,15 +40,16 @@ function FormularioEdicion({}) {
     e.preventDefault();
     const form = validarFormulario()
     if(form){
-      alert(form)}
+      toast.error(form)}
     else{
       editarProducto(producto).then(()=>{
-        alert("El producto se modifico exitosamente")
+       toast.success("El producto se modifico exitosamente")
         setCargando(false)
       }).catch((err)=>{
         console.log(err)
         setError(err)
         setCargando(false)
+        toast.error(err)
       })
     }
   };
@@ -85,40 +89,52 @@ function FormularioEdicion({}) {
 
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h2>Editar Producto</h2>
-      <div>
-        <label>Nombre:</label>
-        <input
+    <Form onSubmit={handleSubmit} style={{ maxWidth: '500px', margin: '2rem auto' }}>
+      <h2 className="mb-4 text-center">Editar Producto</h2>
+
+      <Form.Group className="mb-3" controlId="formNombre">
+        <Form.Label>Nombre</Form.Label>
+        <Form.Control
           type="text"
           name="name"
           value={producto.name || ''}
           onChange={handleChange}
+          placeholder="Nombre del producto"
           required
         />
-      </div>
-      <div>
-        <label>Precio:</label>
-        <input
+      </Form.Group>
+
+      <Form.Group className="mb-3" controlId="formPrecio">
+        <Form.Label>Precio</Form.Label>
+        <Form.Control
           type="number"
           name="price"
           value={producto.price || ''}
           onChange={handleChange}
-          required
+          placeholder="Precio"
           min="0"
+          required
         />
-      </div>
-      <div>
-        <label>Descripción:</label>
-        <textarea
+      </Form.Group>
+
+      <Form.Group className="mb-4" controlId="formDescripcion">
+        <Form.Label>Descripción</Form.Label>
+        <Form.Control
+          as="textarea"
           name="description"
           value={producto.description || ''}
           onChange={handleChange}
+          placeholder="Descripción del producto"
+          rows={3}
           required
         />
-      </div>
-      <button type="submit">Actualizar Producto</button>
-    </form>
+      </Form.Group>
+
+      <Button variant="primary" type="submit" className="w-100">
+        Actualizar Producto
+      </Button>
+      <ToastContainer/>
+    </Form>
   );
 }
 
