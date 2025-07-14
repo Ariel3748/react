@@ -6,11 +6,31 @@ import { useProductosContext } from "../context/ProductosContext";
 import Cards from "./Card";
 
 function ContainerProductos({}){
-    //const[productos,setProductos] = useState([])  
+
+
+
+
+
     const [cargando, setCargando] = useState(true);
     const [error, setError] = useState(null);
+    const [filtro, setFiltro] = useState("")
+    const {productos,obtenerProductosDeApi, filtrarProductos } = useProductosContext()
 
-    const {productos,obtenerProductosDeApi } = useProductosContext()
+    //Paginacion////////////////////////
+    const productosPorPagina = 8;
+    const [paginaActual, setPaginaActual] = useState(1);
+    // Calcular el índice de los productos a mostrar en la página actual
+    const indiceUltimoProducto = paginaActual * productosPorPagina;
+    const indicePrimerProducto = indiceUltimoProducto - productosPorPagina;
+    const productosActuales = productos.slice(indicePrimerProducto, indiceUltimoProducto);
+/////////////
+
+
+    useEffect(() => {
+        filtrarProductos(filtro)
+    },[filtro])//filtro
+
+
 
 
   useEffect(() => {//llamar a el contexto de obtenerProductosDeApi con then y eso
@@ -21,6 +41,10 @@ function ContainerProductos({}){
                 setError(err)
             })
   }, []);
+
+  
+    const totalPaginas = Math.ceil(productos.length / productosPorPagina);
+    const cambiarPagina = (numeroPagina) => setPaginaActual(numeroPagina);
 
 
 
@@ -33,13 +57,37 @@ function ContainerProductos({}){
 
     }else{
         return(
+        <>
+            <div className="input-group mb-3 mt-3">
+                <span className="input-group-text">
+                </span>
+                <input
+                    type="text"
+                    className="form-control"
+                    placeholder="Buscar productos..."
+                    value={filtro}
+                    onChange={(e) => setFiltro(e.target.value)}
+                />
+            </div>
             <div className="container-productos">
-                {productos.map((producto) => (
+                {productosActuales.map((producto) => (
                     <Card
                         producto={producto}
                     />
                 ))}
             </div>
+            <div className="d-flex justify-content-center my-4"> {/*Componente de paginacion*/ }
+                    {Array.from({ length: totalPaginas }, (_, index) => (
+                    <button
+                        key={index + 1}
+                        className={`btn mx-1 ${paginaActual === index + 1 ? "btn-primary" : "btn-outline-primary"}`}
+                        onClick={() => cambiarPagina(index + 1)}
+                    >
+                        {index + 1}
+                    </button>
+                    ))}
+                </div>
+        </>
         )
     }
 

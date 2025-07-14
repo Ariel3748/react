@@ -5,6 +5,7 @@ import { Navigate, useNavigate } from 'react-router-dom';
 
     const [productos, setProductos ] = useState([])
     const [productoEncontrado, setProductoEncontrado] = useState([])
+    const [productosOriginales, setProductosOriginales] = useState([])
  
 
     function obtenerProductosDeApi(){
@@ -15,6 +16,7 @@ import { Navigate, useNavigate } from 'react-router-dom';
                 .then((datos) =>{ 
                     setProductos(datos)
                     res(datos)
+                    setProductosOriginales(datos)
                 })
                 .catch((error) => {
                     console.error("Error:", error)
@@ -117,11 +119,21 @@ import { Navigate, useNavigate } from 'react-router-dom';
     };
 
 
+    function filtrarProductos(filtro){
+        if(filtro.length < 0){
+            setProductos(productosOriginales)
+            return;
+        }
 
+        const productosFiltrados = productosOriginales.filter((producto) =>
+            producto.name.toLowerCase().includes(filtro.toLowerCase())
+        );
+        setProductos(productosFiltrados)
+    }
  
  
  return (
-        <ProductosContext.Provider value={{editarProducto, productos, obtenerProductosDeApi, agregarProducto, obtenerProducto, productoEncontrado, eliminarProducto}}>
+        <ProductosContext.Provider value={{filtrarProductos, editarProducto, productos, obtenerProductosDeApi, agregarProducto, obtenerProducto, productoEncontrado, eliminarProducto}}>
         {children}
         </ProductosContext.Provider> 
     );

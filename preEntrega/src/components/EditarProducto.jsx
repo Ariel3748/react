@@ -68,6 +68,9 @@ function FormularioEdicion({}) {
   if (!producto.description.trim() || producto.description.length < 10) {
     return "La descripción debe tener al menos 10 caracteres.";
   }
+  if(!producto.image.trim()){
+    return("La url de la imgaen no debe estar vacía")
+  }
   return null;
 };
 
@@ -113,6 +116,19 @@ function FormularioEdicion({}) {
           onChange={handleChange}
           placeholder="Precio"
           min="0"
+          required
+        />
+      </Form.Group>
+
+      <Form.Group className="mb-4" controlId="formDescripcion">
+        <Form.Label>Imagen</Form.Label>
+        <Form.Control
+          as="textarea"
+          name="image"
+          value={producto.image || ''}
+          onChange={handleChange}
+          placeholder="Imagen del producto"
+          rows={3}
           required
         />
       </Form.Group>

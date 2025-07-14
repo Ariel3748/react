@@ -12,6 +12,7 @@ function FormularioProducto({}) {
     name: "",
     price: "",
     description: "",
+    image: ""
   });
 
   const handleChange = (e) => {
@@ -30,6 +31,9 @@ function FormularioProducto({}) {
     if (!producto.description.trim() || producto.description.length < 10) {
       return "La descripción debe tener al menos 10 caracteres.";
     }
+    if(!producto.image.trim()){
+      return("La url de la imgaen no debe estar vacía")
+    }
     return null;
   };
 
@@ -42,7 +46,7 @@ function FormularioProducto({}) {
       toast.error(error); // Acá salta el mensaje
     } else {
       agregarProducto(producto)
-        .then((data) => setProducto({ name: "", price: "", description: "" }, toast.success("Producto agregado exitosamente")))
+        .then((data) => setProducto({ name: "", price: "", description: "", image: "" }, toast.success("Producto agregado exitosamente")))
         .catch((error) => toast.error(error));
     }
   };
@@ -71,6 +75,19 @@ function FormularioProducto({}) {
           value={producto.price}
           onChange={handleChange}
           placeholder="Ingrese el precio"
+          required
+        />
+      </Form.Group>
+
+      <Form.Group className="mb-4" controlId="formDescripcion">
+        <Form.Label>Imagen URL</Form.Label>
+        <Form.Control
+          as="textarea"
+          name="image"
+          value={producto.image}
+          onChange={handleChange}
+          placeholder="Ingrese la imagen del producto"
+          rows={3}
           required
         />
       </Form.Group>
